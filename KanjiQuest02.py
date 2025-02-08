@@ -126,7 +126,7 @@ def main():
     age_group = st.selectbox("Select Your Age Group:", ["10-14", "15-20", "21-25", "26-30", "30+"])
     gender = st.selectbox("Select Gender:", ["Male", "Female"])
     nationality = st.selectbox("Select Nationality:", ["India", "Japan", "USA", "China"])
-    region = st.selectbox("Select Region:", ["North", "South", "East", "West"])
+    #region = st.selectbox("Select Region:", ["North", "South", "East", "West"])
     hobbies = st.multiselect("Select Hobbies:", ["Anime", "Reading Comics", "Gaming", "Music", "Sports", "Cooking", "Other"])
 
     # Button to Generate Mnemonic
@@ -145,7 +145,7 @@ def main():
             f"Age Group: {age_group}\n"
             f"Gender: {gender}\n"
             f"Nationality: {nationality}\n"
-            f"Region: {region}\n"
+            #f"Region: {region}\n"
             f"Hobbies: {', '.join(hobbies)}\n"
         )
         st.write(call_mistral_api(prompt))

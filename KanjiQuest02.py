@@ -8,56 +8,72 @@ API_ENDPOINT = "https://api.mistral.ai/v1/chat/completions"
 # Static long-context document (replace with your actual content)
 static_context = """
 
-These instructions guide the creation of prompts for text-to-image generation, based on a given mnemonic corresponding a Kanji character and various user inputs. The goal is to generate personalized images by incorporating both the mnemonic details and user preferences into the prompt. Below are comprehensive steps for constructing the prompt, along with examples for reference.
-Guidelines:
-Step 1: Identify Keywords/Objects
-Extract the core keywords or objects from the given mnemonic. These are the visual elements that will be represented in the generated image. For instance, in a mnemonic for Tree, keywords could include “Tree”, "trunk," "bough," "roots," etc.
-Step 2: Build the Prompt in a Structured Manner
-Create the prompt by describing, in detail, how each keyword or object from the mnemonic will be visually represented in the image. This should be a step-by-step breakdown of the visual elements.
-Step 3: Use a Step-by-Step and a Sequential Format
-The prompt should be clearly structured, following a logical sequence. This helps ensure clarity and avoids ambiguity, making the image generation process more effective.
-Step 4: Specify the View
-After describing the objects, indicate the view of the image (e.g., front view, side view, or top view). Use your judgment for which view is most appropriate—typically, the front view is the most common.
-Step 5: Incorporate User Preferences and demographic information
-At the end of the prompt, include a line that says, "Following are the user preferences and demographic information; try to personalize the images using the user preferences and demographic information given below:" Then list the user preferences:
-Art type: [user input]
-Art color: [user input]
-Age group: [user input]
-Gender: [user input]
-Nationality: [user input]
-Region: [user input]
-Hobbies: [user input]
-Step 6: Craft Original Prompts
-Do not simply replicate the examples provided. Instead, craft your own prompts by following the above steps, ensuring that the final prompt is unique and tailored to the given mnemonic and user inputs.
+The following guidelines should help you understand how to generate the desired output, using the given input. It is a very long and detailed set of guideline, go through it line by line and make sure to follow all the guidelines.
+What is your job?
+Your job is to create a prompt that the user/student can use later to create a personalized image (using a text to image generator tool). The prompt must be created in such a way that a clear association can be made between the shape of the Kanji character and the image generated using the prompt so that using the image the student can easily remember the meaning of the Kanji character.
+What is the input and output: 
+Input:
+There three different types of inputs
+1)	First input is the mnemonic that will be given by the user.
+Here Mnemonic is used to make association between the shape of the Kanji character and a real life object or an imaginary scenario. A student uses this mnemonic to make association between the shape of the Kanji character and some real life object/scenario to help him/her remember the meaning of the Japanese Kanji character.                
+2)	The second input is the Art style:
+Within this input category the user selects whether he/she wants a “line art” or “realistic art” along with the color of the art, that is  “black and white” or “color”.
+3)	The third input type is the demographic information of the user such as the age, gender, nationality and the hobbies, so that these inputs can be put into the prompt to generate a personalized image using this prompt in a text to image generator tool.
+Output:
+Output is a step by step prompt that the user/student can use later to create a personalized image (using a text to image generator tool). The output that is the prompt must meet the following requirements.
+1)	Start with the first category of user input that is the “mnemonic”.
+2)	It should be a step by step prompt.
+3)	Its should be a detailed prompt.
+4)	It must contain the keywords or objects from the given mnemonic.
+5)	Make sure to not just mention the keywords in the prompt, it is very important that a scenario is mentioned in the prompt that utilizes the keywords and highlights them in the scenario.
+6)	Must focus on the adjectives such as “long”, “tall”, “short” etc mentioned in the mnemonic and must use them in the prompt. So if the mnemonic mentions “long roots of a tree” then you must highlight in the prompt that the tree image to be generated must have “really long roots”.
+7)	The adjectives mentioned in the mnemonic such as “long”, “tall”, “short” etc needs to slightly exaggerated in the image so that the user can easily correlate the image  and the shape of the kanji that he/she is trying to learn. So if the mnemonic says that the tree has long roots and long horizontal branches then you must slightly ‘exaggerate’’ these adjectives and must mention in the prompt that the tree image to be generated has to have 1) ‘really’ long roots, 2) ‘very’ horizontal branches, 3) those horizontal branches should be ‘really’ long.
+8)	Now read the demographic details of the user which are age, gender, nationality and the hobbies, and you must add some element into the prompt using these demographic details so that the image becomes personalized to the user.
+9)	Whenever a girl or woman is mentioned in the prompt you must add a line in the prompt that the woman or girl should be dressed in traditional Japanese clothing.
+10)	Now  indicate the view of the image in the prompt (e.g., front view, side view, or top view). Use your judgment for which view is most appropriate—typically, the front view is the most common.
 
-Example Input and Output:
+11)	Once this step-by-step prompt is generated then mention the second category of input that is the art style that is “line art” or “realistic art” along with the color of the art, that is  “black and white” or “color”.
 
-Example 1:
-
+Example of Input and Output:
+ the examples of input and desired outputs are provided under doble strokes ("" )  along with reasoning behind the desired output as well. Please read the reasoning as well so that you understand why I wrote the output like this.
+Example 1: 
 Input: 
-kanji_character = "Tree"
+""   
 mnemonic =  
-"Here we see a pictograph of a tree, showing the main trunk in the long vertical stroke and the boughs in the long
-horizontal stroke. The final two strokes sweep down in both directions to indicate the roots. Although it may look
-similar at first sight to the kanji for water (FRAME 137), the order in which it is written is completely different and this
-affects its final appearance. [4]
+"Here we see a pictograph of a tree, showing the main trunk in the long vertical stroke and the boughs/branches in the long horizontal stroke. The final two strokes sweep down in both directions to indicate the roots. Although it may look similar at first sight to the kanji for water (FRAME 137), the order in which it is written is completely different and this
+affects its final appearance. 
+As a primitive, this kanji can mean tree or wood. When the last two strokes are detached from the trunk, we shall change its meaning to pole, or wooden pole.
 
-As a primitive, this kanji can mean tree or wood. When the last two strokes are detached from the trunk, we
-shall change its meaning to pole, or wooden pole"
-
-Output: Create a graphic of a tree with:
-A single, long trunk that extends vertically.
-A long, horizontal bough extending from the trunk.
-Two roots spreading outward from the base of the trunk in opposite directions.
-View = Front view.
-Following are the user preferences and demographic information; try to personalize the images using the user preferences and demographic information given below:
+Art-style:
 Art type: Line art
 Art color: Black and white
+Demographic Details:
 Age group: 15 to 20
 Gender: Female
 Nationality: India
-Region: North
-Hobbies: Anime
+Hobbies: watching Anime
+
+"" 
+
+Output: 
+"" 
+Create a graphic of a tree with:
+•	A single, really long trunk that extends vertically.
+•	A really long and horizontal bough/branch extending from the trunk.
+•	Two very long roots spreading outward from the base of the trunk in opposite directions.
+•	The user is a female in the age group “15 to 20” so design the elements in the image so that they are more appealing to a female who is “15 to 20” years old.
+•	View = Front view.
+•	
+Following are the user preferences; try to personalize the images using the user preferences given below:
+Art type: Line art
+Art color: Black and white
+
+"" 
+Reasoning behind the output:
+
+"" 
+Note that in the line “A really long and horizontal bough/branch extending from the trunk” from the prompt I have used the word ‘really long’ because in the mnemonic as well they have mentioned “the long horizontal stroke” so as per the instructions I have added the word ‘really’, so that image created has a really long branch, with this really long branch it will be easier for the user to correlate the shape of the Kanji character and the image, eventually helping the user to remember the meaning of the Kanji character. Now similarly in another line of the output I have mentioned “The user is a female in the age group “15 to 20” so design the elements in the image so that they are more appealing to a female who is “15 to 20” years old” because as per instrauction the output must add some element into the prompt using these demographic details so that the image becomes personalized to the user.
+"" .
 
 """  # Shortened for brevity
 

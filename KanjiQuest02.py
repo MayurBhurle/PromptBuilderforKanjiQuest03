@@ -6,8 +6,7 @@ API_KEY = "CS2iq3kE5NTmtA97BjhkmprNEya6EuQH"
 API_ENDPOINT = "https://api.mistral.ai/v1/chat/completions"
 
 # Static long-context document (replace with your actual content)
-static_context = 
-"""
+static_context = """
 
 Guidelines to write prompt from Mnemonics, with examples:
 

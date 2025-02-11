@@ -608,7 +608,7 @@ def main():
     # Second Subsection: Specify Kanji Character
     st.markdown("---")
     st.header("This Mnemonic is for which Kanji Character")
-    kanji_character = st.text_input("Enter the Kanji Character:", placeholder="e.g., 木 (Tree)")
+    kanji_character = st.text_input("Enter the english meaning of the kanji character:", placeholder="e.g., 木 (Tree)")
 
     # Third Subsection: Art Style
     st.markdown("---")
@@ -625,8 +625,8 @@ def main():
     nationality = st.selectbox("Select Nationality:", ["India", "Japan", "USA", "China"])
     hobbies = st.multiselect("Select Hobbies:", ["Anime", "Reading Comics", "Gaming", "Music", "Sports", "Cooking", "Other"])
 
-    # Button to Generate Mnemonic
-    if st.button("Generate Mnemonic"):
+    # Button to Generate Prompt
+    if st.button("Generate Prompt"):
         if not API_KEY or not API_ENDPOINT:
             st.error("API key or endpoint is missing. Please check your .env file.")
             return

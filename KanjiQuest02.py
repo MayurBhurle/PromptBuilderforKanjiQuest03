@@ -33,7 +33,8 @@ Within this input category the user selects whether he/she wants a “line art�
 Output:
 <
 Output is a step by step prompt that the user/student can use later to create a personalized image (using a text to image generator tool). The prompt must meet the following requirements.
-1)	Start with the first category of user input that is the “mnemonic”.
+0) Start with the sentence asking the model to wait and take time to think before generating an illustration, then generate the illustration.
+1)	Now focus on the first category of user input that is the “mnemonic”.
 2)	It should be a detailed step by step prompt, please make sure that the prompt is given in steps.
 4)	It must contain the keywords or objects from the given mnemonic.
 5)	Make sure to not just mention the keywords in the prompt, it is very important that a scenario is mentioned in the prompt that utilizes the keywords and highlights them in the scenario.
@@ -91,6 +92,9 @@ Temperature basically means creativity, 0 temperature means “little creativity
 So using the instructions given above the following prompt was built:
 Prompt:
 <
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
+
+
 Step 1) Represent a single, really long trunk that extends vertically.
 Step 2) Represent a really long and horizontal bough extending from the trunk, make sure that there is only one horizontal bough.
 Step 3) Represent two very long roots spreading outward from the base of the trunk in opposite directions, make sure there are only two very long and thick roots.
@@ -136,7 +140,7 @@ Temperature basically means creativity, 0 temperature means “little creativity
 So using the instructions given above the following prompt was built:
 Prompt:
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
 
 Step 1) Represent the sky as a horizontal line at the top.
 Step 2) Depict clouds and raindrops below the sky.
@@ -180,7 +184,7 @@ Temperature basically means creativity, 0 temperature means “little creativity
 So using the instructions given above the following prompt was built:
 Prompt:
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
 
 Step 1) Represent an eye in the graphic.
 Step 2) Attach a pair of human legs to the bottom of the eye.
@@ -229,7 +233,7 @@ So using the instructions given above the following prompt was built:
 Prompt:
 
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
  Step 1) Represent a sun and moon separately in the image side by side. 
 Step 2) Represent bright rays coming from the sun and the moon. 
 Step 3) I want to emphasize that I do not want unnecessary faces in the image. 
@@ -275,7 +279,7 @@ So using the instructions given above the following prompt was built:
 Prompt:
 
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
  Step 1) Represent two people sitting on the ground back to back, please make sure that the individuals are sitting back to back.
 Step 2) Make sure both individuals have their arms interlocked or folded
 step 3) Add cold air breezing through, and the individuals are sitting back-to-back with their arms folded, trying to stay warm.
@@ -326,7 +330,8 @@ Temperature basically means creativity, 0 temperature means “little creativity
 Prompt:
 
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
+
  Step 1) start with representing the pruned tree make sure its a pruned tree not a normal tree.
 Step 2) Now show few fruits on the pruned tree
 step 3) Now show an official taster who is tasting a fruit beside a pruned tree, this entire story is being associated with the word “flavor”.
@@ -374,7 +379,7 @@ Temperature basically means creativity, 0 temperature means “little creativity
 Prompt:
 
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration..
  Step 1) start with representing the pruned tree make sure its a pruned tree not a normal tree.
 Step 2) Now show few fruits on the pruned tree
 step 3) Now show an official taster who is tasting a fruit beside a pruned tree, this entire story is being associated with the word “flavor”.
@@ -418,7 +423,8 @@ Temperature basically means creativity, 0 temperature means “little creativity
 Using the above instructions, the following prompt has been made.
 Prompt:
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
+
  Step 1) start with representing the roman numeral X.
 Step 2) Now show a curved  arrow that indicates rotation by 45 degrees.
 The complete picture will be used by the user to associate it with the number ten.
@@ -460,7 +466,7 @@ Temperature basically means creativity, 0 temperature means “little creativity
 Using the above instructions, the following prompt has been made.
 Prompt:
 <
-Please create a graphic using the following steps:
+Generate a graphic using the following instructions. Also wait and take time to think before generating an illustration.
  Step 1) Start with representing  a flat ceiling.
 Step 2) Now show a magic wand hanging below the flat ceiling, please note that the wand is hanging below the ceiling.
 The complete picture will be used by the user to associate it with the word below.
@@ -470,6 +476,8 @@ Art type: Line art;
 Art color: Black and White;
 Creativity: medium (temperature = 1) 
 Step 4) Make sure the images created are age appropriate as the users are mostly under 18 years old.
+
+
 
 
 

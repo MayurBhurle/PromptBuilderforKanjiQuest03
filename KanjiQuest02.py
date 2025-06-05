@@ -515,14 +515,14 @@ def main():
     st.markdown("---")
     st.header("Enter Your Mnemonic")
     #st.markdown("<div style='font-size:17px;'>Please copy and paste the entire mnemonic from the <em>Remembering the Kanji</em> book or type in your own mnemonic.</div>", unsafe_allow_html=True)
-    mnemonic = st.text_area(placeholder="e.g., A tree with roots and branches...", label_visibility="visible", height=150)
+    mnemonic = st.text_area(" ",placeholder="e.g., A tree with roots and branches...", label_visibility="visible", height=150)
 
     #st.markdown("---")
     #st.header("This Mnemonic is for which Kanji Character")
     #kanji_character = st.text_input("Enter the English meaning of the Kanji character:", placeholder="e.g., 木 (Tree)")
     st.markdown("---")
     st.header("This Mnemonic is for which Kanji Character")  # just display the heading
-    kanji_character = st.text_input(placeholder="e.g., 木 (Tree)")
+    kanji_character = st.text_input(" ", placeholder="e.g., 木 (Tree)")
 
  
 

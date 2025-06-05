@@ -533,7 +533,7 @@ def main():
             font-size: 21px !important;
         }
         label, .stSelectbox > div {
-            font-size: 21px !important;
+            font-size: 19px !important;
         }
         </style>
     """, unsafe_allow_html=True)

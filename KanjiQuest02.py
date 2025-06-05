@@ -1,10 +1,3 @@
-here I want to make only one Changecanges:
-
-I wan to increase the size of the text in the input boxes, basically all the things that we fill as input and also the out put that we get at least by three points:
-
-here is the code , please give which lines I should change, I dont want tany other changes:
-
-(
 import streamlit as st
 import requests
 
@@ -561,4 +554,3 @@ def main():
 # Run the main function
 if __name__ == "__main__":
     main()
-)

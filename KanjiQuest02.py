@@ -517,8 +517,8 @@ def main():
     st.markdown("<div style='font-size:17px;'>Please copy and paste the entire mnemonic from the <em>Remembering the Kanji</em> book or type in your own mnemonic.</div>", unsafe_allow_html=True)
     mnemonic = st.text_area("Enter your mnemonic:", placeholder="e.g., A tree with roots and branches...", label_visibility="visible", height=150)
 
-    st.markdown("---")
-    st.header("This Mnemonic is for which Kanji Character")
+    #st.markdown("---")
+    #st.header("This Mnemonic is for which Kanji Character")
     kanji_character = st.text_input("Enter the English meaning of the Kanji character:", placeholder="e.g., 木 (Tree)")
 
     st.markdown(# Inject custom CSS to increase font size of inputs

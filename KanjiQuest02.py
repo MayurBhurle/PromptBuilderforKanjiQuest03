@@ -483,30 +483,34 @@ Step 4) Make sure the images created are age appropriate as the users are mostly
 
 
 """ 
-
-def call_mistral_api(prompt):
-    """Calls the Mistral API's chat completions endpoint with the given prompt."""
+def call_mistral_api(prompt_text): # Renamed 'prompt' to 'prompt_text' to avoid conflict if used in global scope
+    """Calls the Mistral API's chat completions endpoint with the given prompt_text."""
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json"
     }
     data = {
         "model": "open-mixtral-8x22b",  # Replace with the desired model ID
-        "messages": [{"role": "user", "content": prompt}]
+        "messages": [{"role": "user", "content": prompt_text}]
     }
     try:
         response = requests.post(API_ENDPOINT, headers=headers, json=data)
         response.raise_for_status()
         result = response.json()
-        return result.get("choices", [])[0].get("message", {}).get("content", "")
+        # Safer access to nested dictionary
+        choices = result.get("choices", [])
+        if choices and isinstance(choices, list) and len(choices) > 0:
+            message = choices[0].get("message", {})
+            if message and isinstance(message, dict):
+                return message.get("content", "")
+        return "No content found in API response." # Default if structure is not as expected
     except requests.exceptions.RequestException as e:
         return f"An error occurred: {e}"
-    except (IndexError, KeyError) as e:
-        return f"Unexpected response format: {e}"
+    except (IndexError, KeyError, TypeError) as e: # Added TypeError for robust parsing
+        return f"Unexpected response format or error parsing response: {e}. Response: {result if 'result' in locals() else 'N/A'}"
 
 def main():
     """Main function to run the Streamlit app."""
-    # Centered Title and Subheader using Markdown + HTML
     st.markdown(
         """
         <h1 style='text-align: center;'>Prompt Builder for Mnemonic Illustrations</h1>
@@ -515,7 +519,6 @@ def main():
         unsafe_allow_html=True
     )
 
-    # First Subsection: Enter Your Mnemonic
     st.markdown("""
     <style>
     /* Target st.text_area */
@@ -535,30 +538,31 @@ def main():
     }
     </style>
     """, unsafe_allow_html=True)
+
+    st.markdown("---")
     st.header("Enter Your Mnemonic")
     st.write("Please copy and paste the entire mnemonic from the *Remembering the Kanji* book or type in your own mnemonic.")
     mnemonic = st.text_area("Enter your mnemonic:", placeholder="e.g., A tree with roots and branches...")
 
-    # Second Subsection: Specify Kanji Character
     st.markdown("---")
     st.header("This Mnemonic is for which Kanji Character")
     kanji_character = st.text_input("Enter the english meaning of the kanji character:", placeholder="e.g., 木 (Tree)")
 
-    # Third Subsection: Art Style
     st.markdown("---")
     st.header("Art Style")
     art_type = st.selectbox("Select Art Type:", ["Line Art(Preferred)", "Realistic"])
     art_color = st.selectbox("Select Art Color:", ["Black & White (Preferred)", "Vibrant Color"])
     temperature = st.selectbox("Select Temperature; Temperature represents creativity of the image to be generated (0-Low, 1-Medium, 2-High):", [0, 1, 2])
 
-    # Button to Generate Prompt
     if st.button("Generate Prompt"):
-        if not API_KEY or not API_ENDPOINT:
-            st.error("API key or endpoint is missing. Please check your .env file.")
+        if not API_KEY or API_KEY == "YOUR_MISTRAL_API_KEY": # Added check for placeholder key
+            st.error("API key is missing or not configured. Please set your MISTRAL_API_KEY.")
             return
-        
-        # Combine static context and user data into a single plain text prompt
-        prompt = (
+        if not API_ENDPOINT:
+            st.error("API endpoint is missing. Please check your configuration.")
+            return
+
+        user_prompt = ( # Renamed 'prompt' to 'user_prompt' to avoid confusion
             f"{static_context}\n\n"
             "User Inputs:\n"
             f"Mnemonic: {mnemonic}\n"
@@ -567,50 +571,49 @@ def main():
             f"Art Color: {art_color}\n"
             f"Temperature: {temperature}\n"
         )
-    # (The code above this line for constructing 'prompt' remains the same)
 
-    api_result = call_mistral_api(prompt)
+        # THIS IS THE CORRECTED INDENTATION BLOCK
+        with st.spinner("Generating prompt..."): # Added a spinner for better UX
+            api_result = call_mistral_api(user_prompt)
 
-    st.markdown("---") # Optional: Adds a horizontal line for separation
-    st.subheader("Output") # 1. Add heading "Output"
+        st.markdown("---")
+        st.subheader("Output")
 
-    if "An error occurred" in api_result or "Unexpected response format" in api_result:
-        # Display API errors with increased font size too, but not bold
-        st.markdown(
-            f"<div style='font-size: 20px; color: red; white-space: pre-wrap; word-wrap: break-word;'>{api_result}</div>",
-            unsafe_allow_html=True
-        )
- 
-    elif api_result:
-        # Ensure html module is imported, preferably at the top of your script: import html
-        import html
-        escaped_api_result = html.escape(api_result)
+        # Check for known error messages or specific non-content responses from call_mistral_api
+        if "An error occurred:" in api_result or \
+           "Unexpected response format" in api_result or \
+           "No content found in API response." == api_result:
+            st.markdown(
+                f"<div style='font-size: 20px; color: red; white-space: pre-wrap; word-wrap: break-word;'>{html.escape(api_result)}</div>",
+                unsafe_allow_html=True
+            )
+        elif api_result: # If api_result is not empty and not one of the known error strings
+            escaped_api_result = html.escape(api_result)
+            st.markdown(
+                f"""
+                <div style='
+                    font-size: 20px;
+                    font-weight: bold;
+                    white-space: pre-wrap;
+                    word-wrap: break-word;
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    background-color: #f9f9f9;
+                '>
+                    {escaped_api_result}
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else: # Handles genuinely empty string results if not caught by specific checks
+            st.markdown(
+                "<div style='font-size: 20px; font-style: italic;'>No specific prompt generated or output was empty.</div>",
+                unsafe_allow_html=True
+            )
 
-        # 2. Make output bold & 3. Increase font size for the output
-        st.markdown(
-            f"""
-            <div style='
-                font-size: 20px;        /* Increased font size (approx +3 points) */
-                font-weight: bold;      /* Bold text */
-                white-space: pre-wrap;  /* Preserve whitespace and wrap */
-                word-wrap: break-word;  /* Break long words */
-                padding: 10px;          /* Optional: for better visual separation */
-                border: 1px solid #ddd; /* Optional: light border for the output box */
-                border-radius: 5px;     /* Optional: rounded corners */
-                background-color: #f9f9f9; /* Optional: light background for output */
-            '>
-                {escaped_api_result}
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-    else:
-        # Handle cases where the API might return an empty string without an error
-        st.markdown(
-            "<div style='font-size: 20px; font-style: italic;'>No specific prompt generated or output was empty.</div>",
-            unsafe_allow_html=True
-        )
- )
+if __name__ == "__main__":
+    main()
 
 # Run the main function
 if __name__ == "__main__":

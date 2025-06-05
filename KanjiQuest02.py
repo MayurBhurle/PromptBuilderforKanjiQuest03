@@ -537,7 +537,7 @@ def main():
         }
         </style>
     """, unsafe_allow_html=True)
-)
+
     st.header("Art Style")
     art_type = st.selectbox("Select Art Type:", ["Line Art(Preferred)", "Realistic"])
     art_color = st.selectbox("Select Art Color:", ["Black & White (Preferred)", "Vibrant Color"])

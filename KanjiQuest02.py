@@ -509,14 +509,32 @@ def main():
     # Centered Title and Subheader using Markdown + HTML
     st.markdown(
         """
-        <h1 style='text-align: center;'>Prompt Builder for Kanji Illustrations</h1>
+        <h1 style='text-align: center;'>Prompt Builder for Mnemonic Illustrations</h1>
         <h3 style='text-align: center; font-weight: normal;'>Effortlessly Generate Detailed Prompts for Text-to-Image Generation Using Mnemonics</h3>
         """,
         unsafe_allow_html=True
     )
 
     # First Subsection: Enter Your Mnemonic
-    st.markdown("---")
+    st.markdown("""
+    <style>
+    /* Target st.text_area */
+    textarea {
+        font-size: 20px !important;
+    }
+    /* Target st.text_input */
+    input[type="text"] {
+        font-size: 20px !important;
+    }
+    /* Target st.selectbox */
+    div[data-baseweb="select"] > div:first-child {
+        font-size: 20px !important; /* For the selected value */
+    }
+    div[data-baseweb="popover"] li {
+        font-size: 20px !important; /* For the options in the dropdown */
+    }
+    </style>
+    """, unsafe_allow_html=True)
     st.header("Enter Your Mnemonic")
     st.write("Please copy and paste the entire mnemonic from the *Remembering the Kanji* book or type in your own mnemonic.")
     mnemonic = st.text_area("Enter your mnemonic:", placeholder="e.g., A tree with roots and branches...")

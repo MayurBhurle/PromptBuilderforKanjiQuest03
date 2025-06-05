@@ -580,7 +580,7 @@ def main():
             f"<div style='font-size: 20px; color: red; white-space: pre-wrap; word-wrap: break-word;'>{api_result}</div>",
             unsafe_allow_html=True
         )
- )
+ 
     elif api_result:
         # Ensure html module is imported, preferably at the top of your script: import html
         import html
@@ -610,6 +610,7 @@ def main():
             "<div style='font-size: 20px; font-style: italic;'>No specific prompt generated or output was empty.</div>",
             unsafe_allow_html=True
         )
+ )
 
 # Run the main function
 if __name__ == "__main__":

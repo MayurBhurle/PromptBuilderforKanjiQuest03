@@ -580,6 +580,7 @@ def main():
             f"<div style='font-size: 20px; color: red; white-space: pre-wrap; word-wrap: break-word;'>{api_result}</div>",
             unsafe_allow_html=True
         )
+ )
     elif api_result:
         # Ensure html module is imported, preferably at the top of your script: import html
         import html

@@ -530,10 +530,10 @@ def main():
     st.markdown("""
         <style>
         textarea, input, select {
-            font-size: 29px !important;
+            font-size: 21px !important;
         }
         label, .stSelectbox > div {
-            font-size: 29px !important;
+            font-size: 21px !important;
         }
         </style>
     """, unsafe_allow_html=True)
@@ -563,7 +563,7 @@ def main():
 
         # Output section
         st.markdown("### Output")
-        st.markdown(f"<div style='font-size:19px; font-weight: bold;'>{result}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:21px; font-weight: bold;'>{result}</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()

@@ -519,19 +519,24 @@ def main():
 
     #st.markdown("---")
     #st.header("This Mnemonic is for which Kanji Character")
+    #kanji_character = st.text_input("Enter the English meaning of the Kanji character:", placeholder="e.g., 木 (Tree)")
+    st.markdown("---")
+    st.header("This Mnemonic is for which Kanji Character")  # just display the heading
     kanji_character = st.text_input("Enter the English meaning of the Kanji character:", placeholder="e.g., 木 (Tree)")
 
-    st.markdown(# Inject custom CSS to increase font size of inputs
-st.markdown("""
-    <style>
-    textarea, input, select {
-        font-size: 19px !important;
-    }
-    label, .stSelectbox > div {
-        font-size: 19px !important;
-    }
-    </style>
-""", unsafe_allow_html=True)
+ 
+
+    #st.markdown(# Inject custom CSS to increase font size of inputs
+    st.markdown("""
+        <style>
+        textarea, input, select {
+            font-size: 19px !important;
+        }
+        label, .stSelectbox > div {
+            font-size: 19px !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 )
     st.header("Art Style")
     art_type = st.selectbox("Select Art Type:", ["Line Art(Preferred)", "Realistic"])

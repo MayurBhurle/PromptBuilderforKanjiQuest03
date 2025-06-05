@@ -483,7 +483,6 @@ Step 4) Make sure the images created are age appropriate as the users are mostly
 
 
 """ 
-
 def call_mistral_api(prompt):
     """Calls the Mistral API's chat completions endpoint with the given prompt."""
     headers = {
@@ -491,7 +490,7 @@ def call_mistral_api(prompt):
         "Content-Type": "application/json"
     }
     data = {
-        "model": "open-mixtral-8x22b",  # Replace with the desired model ID
+        "model": "open-mixtral-8x22b",
         "messages": [{"role": "user", "content": prompt}]
     }
     try:
@@ -505,8 +504,6 @@ def call_mistral_api(prompt):
         return f"Unexpected response format: {e}"
 
 def main():
-    """Main function to run the Streamlit app."""
-    # Centered Title and Subheader using Markdown + HTML
     st.markdown(
         """
         <h1 style='text-align: center;'>Prompt Builder for Mnemonic Illustrations</h1>
@@ -515,31 +512,27 @@ def main():
         unsafe_allow_html=True
     )
 
-    # First Subsection: Enter Your Mnemonic
     st.markdown("---")
     st.header("Enter Your Mnemonic")
-    st.write("Please copy and paste the entire mnemonic from the *Remembering the Kanji* book or type in your own mnemonic.")
-    mnemonic = st.text_area("Enter your mnemonic:", placeholder="e.g., A tree with roots and branches...")
+    st.markdown("<div style='font-size:17px;'>Please copy and paste the entire mnemonic from the <em>Remembering the Kanji</em> book or type in your own mnemonic.</div>", unsafe_allow_html=True)
+    mnemonic = st.text_area("Enter your mnemonic:", placeholder="e.g., A tree with roots and branches...", label_visibility="visible", height=150)
 
-    # Second Subsection: Specify Kanji Character
     st.markdown("---")
     st.header("This Mnemonic is for which Kanji Character")
-    kanji_character = st.text_input("Enter the english meaning of the kanji character:", placeholder="e.g., 木 (Tree)")
+    kanji_character = st.text_input("Enter the English meaning of the Kanji character:", placeholder="e.g., 木 (Tree)")
 
-    # Third Subsection: Art Style
     st.markdown("---")
     st.header("Art Style")
     art_type = st.selectbox("Select Art Type:", ["Line Art(Preferred)", "Realistic"])
     art_color = st.selectbox("Select Art Color:", ["Black & White (Preferred)", "Vibrant Color"])
     temperature = st.selectbox("Select Temperature; Temperature represents creativity of the image to be generated (0-Low, 1-Medium, 2-High):", [0, 1, 2])
 
-    # Button to Generate Prompt
+    st.markdown("---")
     if st.button("Generate Prompt"):
         if not API_KEY or not API_ENDPOINT:
             st.error("API key or endpoint is missing. Please check your .env file.")
             return
-        
-        # Combine static context and user data into a single plain text prompt
+
         prompt = (
             f"{static_context}\n\n"
             "User Inputs:\n"
@@ -549,8 +542,12 @@ def main():
             f"Art Color: {art_color}\n"
             f"Temperature: {temperature}\n"
         )
-        st.write(call_mistral_api(prompt))
 
-# Run the main function
+        result = call_mistral_api(prompt)
+
+        # Output section
+        st.markdown("### Output")
+        st.markdown(f"<div style='font-size:17px; font-weight: bold;'>{result}</div>", unsafe_allow_html=True)
+
 if __name__ == "__main__":
     main()

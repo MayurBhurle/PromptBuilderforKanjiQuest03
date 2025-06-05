@@ -567,7 +567,48 @@ def main():
             f"Art Color: {art_color}\n"
             f"Temperature: {temperature}\n"
         )
-        st.write(call_mistral_api(prompt))
+    # (The code above this line for constructing 'prompt' remains the same)
+
+    api_result = call_mistral_api(prompt)
+
+    st.markdown("---") # Optional: Adds a horizontal line for separation
+    st.subheader("Output") # 1. Add heading "Output"
+
+    if "An error occurred" in api_result or "Unexpected response format" in api_result:
+        # Display API errors with increased font size too, but not bold
+        st.markdown(
+            f"<div style='font-size: 20px; color: red; white-space: pre-wrap; word-wrap: break-word;'>{api_result}</div>",
+            unsafe_allow_html=True
+        )
+    elif api_result:
+        # Ensure html module is imported, preferably at the top of your script: import html
+        import html
+        escaped_api_result = html.escape(api_result)
+
+        # 2. Make output bold & 3. Increase font size for the output
+        st.markdown(
+            f"""
+            <div style='
+                font-size: 20px;        /* Increased font size (approx +3 points) */
+                font-weight: bold;      /* Bold text */
+                white-space: pre-wrap;  /* Preserve whitespace and wrap */
+                word-wrap: break-word;  /* Break long words */
+                padding: 10px;          /* Optional: for better visual separation */
+                border: 1px solid #ddd; /* Optional: light border for the output box */
+                border-radius: 5px;     /* Optional: rounded corners */
+                background-color: #f9f9f9; /* Optional: light background for output */
+            '>
+                {escaped_api_result}
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    else:
+        # Handle cases where the API might return an empty string without an error
+        st.markdown(
+            "<div style='font-size: 20px; font-style: italic;'>No specific prompt generated or output was empty.</div>",
+            unsafe_allow_html=True
+        )
 
 # Run the main function
 if __name__ == "__main__":
